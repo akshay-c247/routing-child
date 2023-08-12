@@ -119,10 +119,10 @@ input:focus ~ .highlight {
 
 /* Animations */
 
-@keyframes inputHighlighter {
+ @keyframes inputHighlighter {
 	from { background: #4a89dc; }
 	to 	{ width: 0; background: transparent; }
-}
+} 
 
 
 /* Button */
