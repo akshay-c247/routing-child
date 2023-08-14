@@ -25,31 +25,32 @@ const Login = () => {
   }
 
   useEffect(() => {
-    const user = JSON.parse(localStorage.getItem('user'))
-    setUserData(user)
-    // console.log(user)
+    const users = localStorage.getItem('users')
+    setUserData(users)
   }, [])
 
-  const handlesubmit = (e) => {
-    e.preventDefault();
-    // localStorage.setItem("user",JSON.stringify(input))
-    //  JSON.parse(localStorage.getItem("user"));
-    // const getuserArr = localStorage.getItem("user")
-    // console.log(getuserArr)
 
+  const handlesubmit = (event) => {
+    event.preventDefault();
+    console.log(userLogin, "ul");
+    console.log(userdata, "ud")
 
-      if ( userdata.email === userLogin.email && userdata.password === userLogin.password) {
-        console.log("successfull")
-        navigate("/home")
+    const tempData = JSON.parse(userdata).filter((item) => item.password === userLogin.password && item.email === userLogin.email)
+    console.log(userLogin, "ud")
 
-      }else{
-        console.log("not success")
-      }
+    console.log(userdata, "data");
+    console.log(tempData, "tempdata");
+    console.log(tempData[0].password === userLogin.password)
 
-    
+    if (userLogin.email === tempData[0].email && userLogin.password === tempData[0].password) {
+      console.log('sucessfull')
 
-
-  }
+      navigate('/home')
+      localStorage.setItem("user_login",JSON.stringify(tempData))
+    } else {
+      console.log('not success')
+    }
+  };
 
   return (
     <React.Fragment>
@@ -69,10 +70,8 @@ const Login = () => {
           ></span><span className="bar"></span>
           <label>PASSWORD</label>
         </div>
-        {/* <button type="button" className="button buttonBlue">Submit
-     <div className="ripples buttonRipples"><span className="ripplesCircle"></span></div>
-    </button> */}
-        {/* <button className='btn btn-primary'>submit</button> */}
+
+
 
 
 
@@ -87,14 +86,10 @@ const Login = () => {
           </Grid>
         </Grid>
       </form>
-      {/* <footer><a href="http:www.polymer-project.org/" target="_blank"><img src="https:www.polymer-project.org/images/logos/p-logo.svg"/></a>
-   <p>You Gotta Love <a href="http:www.polymer-project.org/" target="_blank">Google</a></p>
- </footer> */}
+
 
     </React.Fragment>
   )
 }
 
 export default Login;
-
-

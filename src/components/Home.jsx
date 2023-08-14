@@ -1,14 +1,45 @@
-import React from "react";
-import { Link, Outlet } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { Link, Outlet, useNavigate } from "react-router-dom";
 import {Breadcrumbs, Typography} from '@mui/material'
 import Layout from "./Layout";
+import Button from '@mui/material/Button';
+
 
 const Home = () => {
+  
+  const[name,setName]=useState([])
+  const navigate = useNavigate();
+ 
+  useEffect(()=>{
+    // name()
+    const getuser = JSON.parse(localStorage.getItem("user_login"))
+  
+   
+       console.log(getuser,'user')
+       console.log(getuser[0].firstName,'user')
+       setName(getuser[0].firstName)
+
+       
+    //   // setLoginData(user);
+    //   console.log(logindata,'login')
+    // console.log(logindata[0].firstName,'name')
+  },[])
+  const logout =()=>{
+    localStorage.removeItem("user_login")
+    navigate("/login")
+  }
   return (
     <>
     <div className="container1">
-        <h2>We Create Software For Digital Economy</h2>  
+      <div className="text-left">
+     <label >Hello {name} </label>
       </div>
+      <div className="text-right">
+      <Button variant="contained" onClick={logout} >Logout</Button>
+      </div>
+        <h2 className="title">We Create Software For Digital Economy</h2>  
+      </div>
+     
     <Layout>
       
       {/* <Breadcrumbs aria-label="breadcrumb">

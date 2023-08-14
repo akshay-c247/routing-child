@@ -5,7 +5,7 @@ const Auth = (props) => {
  const navigate = useNavigate()
 
  useEffect(() => {
-  if (!localStorage.getItem('user')) {
+  if (!localStorage.getItem('users')) {
    navigate('/login')
    console.log('not authenticate')
   }

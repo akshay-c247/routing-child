@@ -67,23 +67,25 @@ export default function SignUp() {
   const classes = useStyles();
   const [input,setInput] = useState({
     firstName:"",
-    // lastname:"",
     email:"",
     password:""
  })
 
- const handlechange =(e) =>{
+ const handlechange = (e) => {
     const{name,value}=e.target;
-    setInput({
-        ...input,
-        [name]:value
-
-    })
+   setInput((prev) => ({...prev, [name]:value}))
  }
 
  const handlesubmit=(e)=>{
   e.preventDefault();
-  localStorage.setItem("user",JSON.stringify(input))
+
+  const allUsers = JSON.parse(localStorage.getItem("users"))
+  localStorage.setItem("users",JSON.stringify([...(allUsers || []) , input]));
+
+  // localStorage.setItem("user",JSON.stringify(input))
+  // const allUsers = localStorage.getItem("user");
+  // localStorage.setItem("user" , JSON.stringify([...allUsers || [] , input]))
+
   const {firstName,email,password}=input;
   if(firstName===""){
     alert("add your name")
@@ -93,12 +95,13 @@ export default function SignUp() {
     alert("Add your passsword")
   }else if(password.length<6){
         alert("password greater then 6")}
-   else{
 
-      navigate("/login")
-   }
+  else{
+
+    navigate("/login")
   }
-
+   
+  }
  
  
  
@@ -112,7 +115,7 @@ export default function SignUp() {
         <Typography component="h1" variant="h5">
           Sign up
         </Typography>
-        <form className={classes.form} noValidate onSubmit={handlesubmit}>
+        {/* <form className={classes.form} noValidate > */}
           <Grid container spacing={2}>
             <Grid item xs={12} sm={6}>
               <TextField
@@ -184,7 +187,7 @@ export default function SignUp() {
             variant="contained"
             color="primary"
             className={classes.submit}
-            
+            onClick={handlesubmit}
             
           >
             Sign Up
@@ -196,7 +199,7 @@ export default function SignUp() {
               </Link>
             </Grid>
           </Grid>
-        </form>
+        {/* </form> */}
       </div>
       <Box mt={5}>
         <Signup/>
